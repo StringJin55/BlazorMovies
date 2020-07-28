@@ -1,16 +1,44 @@
 ﻿@page "/"
 
-<p>Hello, @CustomToUpper(name)</p>
+<p>Hello, </p>
 
 <button @onclick=@WriteLog>Click Me!</button>
 
-@code{
-    string name = "HyunJin";
+<div>
+    <h3>Movie</h3>
+    @if (movies == null)
+    {
+        <text>Loading...</text>
+    }
+    else
+    {
+        @foreach (var movie in movies)
+        {
+            <p>Title : @((MarkupString)movie.Title)</p>
+            <p>ReleaseDate : <b>@movie.ReleaseDate.ToString("dd MMM yyyy")</b></p>
+        }
+    }
+</div>
 
-    string CustomToUpper(string value) => value.ToUpper();
+@code{
+        string name = "HyunJin";
+
+        List<Movie> movies;
+
+    protected async override Task OnInitializedAsync()
+    {
+        await Task.Delay(3000);
+        movies = new List<Movie>()
+        {
+            new Movie() { Title = "<b>Spider-Man : Far From Home</b>", ReleaseDate = new DateTime(2019, 7, 21) },
+            new Movie() { Title = "<i>God Father2</i>", ReleaseDate = new DateTime(1960, 3, 19) },
+            new Movie() { Title = "Inception", ReleaseDate = new DateTime(2010, 7, 16) }
+        };
+
+    }
 
     void WriteLog()
     {
         Console.WriteLine("Click!");
     }
-    }
+}
