@@ -1,44 +1,28 @@
 ﻿@page "/"
 
-<p>Hello, </p>
-
-<button @onclick=@WriteLog>Click Me!</button>
-
 <div>
-    <h3>Movie</h3>
-    @if (movies == null)
-    {
-        <text>Loading...</text>
-    }
-    else
-    {
-        @foreach (var movie in movies)
-        {
-            <p>Title : @((MarkupString)movie.Title)</p>
-            <p>ReleaseDate : <b>@movie.ReleaseDate.ToString("dd MMM yyyy")</b></p>
-        }
-    }
+    <h4>Movie</h4>
+    <MovieList Movies="movies"/>
 </div>
-
-@code{
-        string name = "HyunJin";
-
-        List<Movie> movies;
-
-    protected async override Task OnInitializedAsync()
+<div>
+    <h2>Create a Movie</h2>
+    <DummyTextbox placeholder ="whatever" disabled ="true" />
+</div>
+@code{  
+    private List<Movie> movies;
+    private Dictionary<string, object> dummyTextboxParameters = new Dictionary<string, object>()
     {
-        await Task.Delay(3000);
+        { "placeholder", "new movie name"},
+        { "disabled", "ture" }
+    };
+    protected override void OnInitialized()
+    {
         movies = new List<Movie>()
         {
-            new Movie() { Title = "<b>Spider-Man : Far From Home</b>", ReleaseDate = new DateTime(2019, 7, 21) },
-            new Movie() { Title = "<i>God Father2</i>", ReleaseDate = new DateTime(1960, 3, 19) },
+            new Movie() { Title = "Spider-Man : Far From Home", ReleaseDate = new DateTime(2019, 8, 21) },
+            new Movie() { Title = "God Father2", ReleaseDate = new DateTime(1960, 3, 19) },
             new Movie() { Title = "Inception", ReleaseDate = new DateTime(2010, 7, 16) }
         };
 
-    }
-
-    void WriteLog()
-    {
-        Console.WriteLine("Click!");
     }
 }

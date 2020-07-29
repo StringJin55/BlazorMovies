@@ -1,0 +1,19 @@
+﻿@if (Movies == null)
+{
+    <img src="https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif"/>
+}
+else if (Movies.Count == 0)
+{
+    <text>There are no records to show</text>
+}
+else
+{
+    @foreach (var movie in Movies)
+    {
+        <IndividualMovie Movie="movie" />
+    }
+}
+@code {
+    [Parameter] public List<Movie> Movies{ get; set; }
+        
+}
