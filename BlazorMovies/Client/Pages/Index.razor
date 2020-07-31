@@ -3,20 +3,14 @@
 <div>
     <h4>Movie</h4>
     <MovieList Movies="movies"/>
-</div>
-<div>
-    <h2>Create a Movie</h2>
-    <DummyTextbox placeholder ="whatever" disabled ="true" />
+
 </div>
 @code{  
     private List<Movie> movies;
-    private Dictionary<string, object> dummyTextboxParameters = new Dictionary<string, object>()
+
+    protected async override Task OnInitializedAsync()
     {
-        { "placeholder", "new movie name"},
-        { "disabled", "ture" }
-    };
-    protected override void OnInitialized()
-    {
+        await Task.Delay(2000);
         movies = new List<Movie>()
         {
             new Movie() { Title = "Spider-Man : Far From Home", ReleaseDate = new DateTime(2019, 8, 21) },
